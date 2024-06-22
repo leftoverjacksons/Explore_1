@@ -5,11 +5,11 @@ from mysql.connector import Error
 def connect_to_database():
     try:
         connection = mysql.connector.connect(
-            host='your_host',
+            host='localhost',  # or '127.0.0.1'
             port=3306,
-            database='your_database',
-            user='your_username',
-            password='your_password'
+            database='alfred_dev',
+            user='tking',
+            password='Sk3lot0nk3y'
         )
 
         if connection.is_connected():
@@ -42,12 +42,13 @@ def main():
     connection = connect_to_database()
     if connection is not None:
         # Example query - replace with your actual query
-        query = "SELECT * FROM your_table LIMIT 5"
+        query = "SHOW TABLES"
         results = fetch_data(connection, query)
 
         if results:
+            print("Tables in the database:")
             for row in results:
-                print(row)
+                print(row[0])
 
         connection.close()
         print("MySQL connection is closed")
