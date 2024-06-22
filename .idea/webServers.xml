@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="fcb5e6bb-d3de-4ed1-a1ef-e37f1d0b143c" name="DAPI02_Explore">
+        <fileTransfer rootFolder="/var/www/explore_1" accessType="SFTP" host="10.200.70.102" port="22" sshConfigId="6fbac51a-1c35-40d3-9183-a2d6f44f424a" sshConfig="tking@10.200.70.102:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
