@@ -27,13 +27,18 @@ def connect_to_database(db_config):
         return None
 
 
-def get_top_selling_items(connection, limit=10):
+def get_top_products_by_revenue(connection, limit=20):
     query = """
     SELECT 
         d.ITEM_NUMBER,
         d.ITEM_DESCRIPTION,
         SUM(f.QUANTITY_SHIPPED) as TOTAL_QUANTITY,
-        SUM(f.EXTENDED_PRICE) as TOTAL_REVENUE
+        SUM(f.EXTENDED_PRICE) as TOTAL_REVENUE,
+        AVG(f.UNIT_PRICE) as AVG_UNIT_PRICE,
+        SUM(f.EXTENDED_COST) as TOTAL_COST,
+        SUM(f.EXTENDED_PRICE) - SUM(f.EXTENDED_COST) as GROSS_PROFIT,
+        MIN(f.ORDER_DATE_SID) as FIRST_ORDER_DATE,
+        MAX(f.ORDER_DATE_SID) as LAST_ORDER_DATE
     FROM 
         F_SALES f
     JOIN 
@@ -41,7 +46,7 @@ def get_top_selling_items(connection, limit=10):
     GROUP BY 
         d.ITEM_NUMBER, d.ITEM_DESCRIPTION
     ORDER BY 
-        TOTAL_QUANTITY DESC
+        TOTAL_REVENUE DESC
     LIMIT %s
     """
     try:
@@ -59,20 +64,26 @@ def main():
     connection = connect_to_database(db_config)
 
     if connection:
-        top_items = get_top_selling_items(connection)
+        top_products = get_top_products_by_revenue(connection)
 
-        if top_items:
-            print("\nTop Selling Items:")
-            print("{:<15} {:<50} {:<15} {:<15}".format(
-                "Item Number", "Description", "Total Quantity", "Total Revenue"))
-            print("-" * 95)
-            for item in top_items:
-                print("{:<15} {:<50} {:<15} ${:<14.2f}".format(
-                    item['ITEM_NUMBER'],
-                    item['ITEM_DESCRIPTION'][:47] + '...' if len(item['ITEM_DESCRIPTION']) > 50 else item[
+        if top_products:
+            print("\nTop Products by Revenue:")
+            print("{:<15} {:<30} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15} {:<15}".format(
+                "Item Number", "Description", "Total Quantity", "Total Revenue", "Avg Unit Price",
+                "Total Cost", "Gross Profit", "First Order", "Last Order"))
+            print("-" * 150)
+            for product in top_products:
+                print("{:<15} {:<30} {:<15} ${:<14.2f} ${:<14.2f} ${:<14.2f} ${:<14.2f} {:<15} {:<15}".format(
+                    product['ITEM_NUMBER'],
+                    product['ITEM_DESCRIPTION'][:27] + '...' if len(product['ITEM_DESCRIPTION']) > 30 else product[
                         'ITEM_DESCRIPTION'],
-                    item['TOTAL_QUANTITY'],
-                    Decimal(item['TOTAL_REVENUE'])
+                    product['TOTAL_QUANTITY'],
+                    Decimal(product['TOTAL_REVENUE']),
+                    Decimal(product['AVG_UNIT_PRICE']),
+                    Decimal(product['TOTAL_COST']) if product['TOTAL_COST'] is not None else Decimal('0.00'),
+                    Decimal(product['GROSS_PROFIT']) if product['GROSS_PROFIT'] is not None else Decimal('0.00'),
+                    str(product['FIRST_ORDER_DATE']),
+                    str(product['LAST_ORDER_DATE'])
                 ))
         else:
             print("No data found or error occurred.")
