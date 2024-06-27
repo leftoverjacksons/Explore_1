@@ -5,6 +5,7 @@ import configparser
 import logging
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+from sklearn.impute import SimpleImputer
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -63,9 +64,9 @@ def prepare_features(data):
                                                                                                            min_periods=1).mean().reset_index(
         0, drop=True)
 
-    # Calculate trend
-    monthly_data['freq_trend'] = monthly_data.groupby('BILL_CUSTOMER_SID')['ORDER_DATE_SID'].diff()
-    monthly_data['monetary_trend'] = monthly_data.groupby('BILL_CUSTOMER_SID')['EXTENDED_PRICE'].diff()
+    # Calculate trend using percentage change
+    monthly_data['freq_trend'] = monthly_data.groupby('BILL_CUSTOMER_SID')['ORDER_DATE_SID'].pct_change()
+    monthly_data['monetary_trend'] = monthly_data.groupby('BILL_CUSTOMER_SID')['EXTENDED_PRICE'].pct_change()
 
     # Get the most recent values for each customer
     recent_behavior = monthly_data.groupby('BILL_CUSTOMER_SID').last().reset_index()
@@ -79,11 +80,26 @@ def prepare_features(data):
 
 
 def cluster_customers(features):
-    scaler = StandardScaler()
-    scaled_features = scaler.fit_transform(features.drop('BILL_CUSTOMER_SID', axis=1))
+    # Select features for clustering
+    cluster_features = ['recency', 'frequency', 'monetary', 'rolling_freq', 'rolling_monetary', 'freq_trend',
+                        'monetary_trend']
 
+    # Create an imputer object
+    imputer = SimpleImputer(strategy='mean')
+
+    # Impute missing values
+    imputed_features = imputer.fit_transform(features[cluster_features])
+
+    # Scale the features
+    scaler = StandardScaler()
+    scaled_features = scaler.fit_transform(imputed_features)
+
+    # Perform clustering
     kmeans = KMeans(n_clusters=5, random_state=42)
-    features['cluster'] = kmeans.fit_predict(scaled_features)
+    cluster_labels = kmeans.fit_predict(scaled_features)
+
+    # Add cluster labels to the original dataframe
+    features['cluster'] = cluster_labels
 
     return features
 

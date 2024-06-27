@@ -1,0 +1,140 @@
+﻿Field,Field Source,Available for Subsidiaries?,Description
+Actual Physical Geographic Regions,JDE/ Sub ERP,Yes,The ACTUAL geographic region the order was shipped to. Could be a Drop Ship
+Actual Ship To Address 1,JDE/ Sub ERP,Yes,The ACTUAL mailing address the order was shipped to. Could be a Drop Ship
+Actual Ship To Address 2,JDE/ Sub ERP,Yes,The ACTUAL mailing address the order was shipped to. Could be a Drop Ship
+Actual Ship To City,JDE/ Sub ERP,Yes,The ACTUAL city the order was shipped to. Could be a Drop Ship
+Actual Ship To Country,JDE/ Sub ERP,Yes,The ACTUAL country the order was shipped to. Could be a Drop Ship
+Actual Ship To Name,JDE/ Sub ERP,Yes,The overriden name for the ship to location the order ACTUALLY went to
+Actual Ship To Postal Code,JDE/ Sub ERP,Yes,The ACTUAL postal code the order was shipped to. Could be a Drop Ship
+Actual Ship To State,JDE/ Sub ERP,Yes,The ACTUAL state the order was shipped to. Could be a Drop Ship
+Bill To Address 1,Oro,Yes,The mailing address for where the bill goes
+Bill To Address 2,Oro,Yes,The mailing address for where the bill goes
+Bill To Buying Group ID,Oro,No,The Buying Group the Parent is a part of. Used in pricing calculations
+Bill To Buying Group Name,Oro,No,The Buying Group the Parent is a part of. Used in pricing calculations
+Bill To City,Oro,Yes,The city for where the bill goes
+Bill To Country ID,Oro,Yes,The country for where the bill goes
+Bill To Country Name,Oro,Yes,The country for where the bill goes
+Bill To Customer Type ID,Oro,No,The Customer Type grouping the Parent is a part of. Used in pricing calculations
+Bill To Customer Type Name,Oro,No,The Customer Type grouping the Parent is a part of. Used in pricing calculations
+Bill To Name,Oro,Yes,The name of where the bill goes
+Bill to Number,JDE/ Sub ERP,Yes,The JDE/ Sub ERP number for this billing address
+Bill To Postal Code,Oro,Yes,The postal code for where the bill goes
+Bill to Region ID,Oro,No,The sales region for where the bill goes
+Bill To Region Name,Oro,No,The sales region for where the bill goes
+Bill To State ID,Oro,Yes,The state for where the bill goes
+Bill To State Name,Oro,Yes,The state for where the bill goes
+Branch,JDE/ Sub ERP,Yes,The distribution center/manufacturing facility that shipped the product
+Buyer ID,JDE/ Sub ERP,No,The procurement associate who manages this item
+Buyer Name,JDE/ Sub ERP,No,The procurement associate who manages this item
+Committed,JDE/ Sub ERP,No,A flag to determine whether the line is committed or not. Only for open orders that haven't shipped yet
+Container ID,JDE/ Sub ERP,No,The container ID that the product will be shipped on
+CSR ID,Oro,No,The customer service rep who manages this account
+CSR Name,Oro,No,The customer service rep who manages this account
+Currency Source,JDE/ Sub ERP,Yes,The currency type of the transaction itself (Could be different that BU currency type)
+Currency Target,JDE/ Sub ERP,Yes,The currency type for the full transaction in the datamart (will always be USD)
+Customer PO Number,JDE/ Sub ERP,Yes,The PO number provided by the customer
+Date Updated,JDE/ Sub ERP,No,The last date this line was updated in the system
+Default Physical Geographic Regions,Only in Tableau,Yes,The DEFAULT geographic region the order was shipped to.
+Ductless,Only in Tableau,No,A flag to designate items we deem as purely Ductless
+External Sales Rep At Time of Invoice ID,Oro,No,The external sales rep that was assigned at the time of invoicing
+External Sales Rep At Time of Invoice Name,Oro,No,The external sales rep that was assigned at the time of invoicing
+External Sales Rep Current Used ID,Oro,No,The external sales rep that we would currently assign to that ship-to
+External Sales Rep Current Used Name,Oro,No,The external sales rep that we would currently assign to that ship-to
+FAUV Owner,Only in Tableau,No,A designation for which FAUV leader this account belongs with
+Focus Product Category,Only in Tableau,No,A designation for which products are a part of our focus categories
+Freight Handling ID,JDE/ Sub ERP,No,The handling ID for how the freight is typically managed
+GL Date,JDE/ Sub ERP,Yes,The date of the transaction as it is posted into the general ledger
+GL Offset,JDE/ Sub ERP,No,The accounting routing ID for the item. Determines where it shows up in our Income Statement
+Global Customer Group Description,Oro,No,The highest level of the global customer grouping
+Global Customer Group ID,Oro,No,The highest level of the global customer grouping
+Global Customer Parent Type Description,Oro,Yes,"The commercial designation for the account…. National, Strategic, Core, or Alternative"
+Global Customer Parent Type ID,Oro,Yes,"The commercial designation for the account…. National, Strategic, Core, or Alternative"
+Global Customer Rollup Description,Oro,No,The middle level of the global customer grouping
+Global Customer Rollup ID,Oro,No,The middle level of the global customer grouping
+Global Customer Sales Channel Description,Oro,Yes,The sales channel for the account…. See example to the right
+Global Customer Sales Channel ID,Oro,Yes,The sales channel for the account…. See example to the right
+Global Customer Segment Description,Oro,Yes,The business/market segment for the account… See example to the right
+Global Customer Segment ID,Oro,Yes,The business/market segment for the account… See example to the right
+Global Customer Sub Description,Oro,No,The lowest level of the global customer grouping
+Global Customer Sub ID,Oro,No,The lowest level of the global customer grouping
+Global Item Acquisition Entity Description,Catsy,Yes,"The entity that originally created the item (could be old companies, i.e. Oldcastle)"
+Global Item Acquisition Entity ID,Catsy,Yes,"The entity that originally created the item (could be old companies, i.e. Oldcastle)"
+Global Item Category Description,Catsy,Yes,The lowest item categorization (on a global scale)
+Global Item Category ID,Catsy,Yes,The lowest item categorization (on a global scale)
+Global Item Duct Attributes Description,JDE/ Sub ERP,Yes,"Differentiates whether the item is for Ducted, Ductless, Both, or Neither systems"
+Global Item Duct Attributes ID,JDE/ Sub ERP,Yes,"Differentiates whether the item is for Ducted, Ductless, Both, or Neither systems"
+Global Item Product Family Description,JDE/ Sub ERP,Yes,The highest item categorization (on a global scale). We currently have 6 PFs
+Global Item Product Family ID,JDE/ Sub ERP,Yes,The highest item categorization (on a global scale). We currently have 6 PFs
+Global Item Product Use Description,JDE/ Sub ERP,Yes,"Differentiates whether the item is for Repair, Maintenance, New Installations, or nothing in particular"
+Global Item Product Use ID,JDE/ Sub ERP,Yes,"Differentiates whether the item is for Repair, Maintenance, New Installations, or nothing in particular"
+Global Item Source Type Description,JDE/ Sub ERP,Yes,"Differentiates whether the item was contract manufactured, manufactured, or purchased"
+Global Item Source Type ID,JDE/ Sub ERP,Yes,"Differentiates whether the item was contract manufactured, manufactured, or purchased"
+Global Item Super Category Description,JDE/ Sub ERP,Yes,The middle item categorization (on a global scale)
+Global Item Super Category ID,JDE/ Sub ERP,Yes,The middle item categorization (on a global scale)
+Global Reporting Region Level 0 Description,JDE/ Sub ERP,Yes,The State/Providence of the sale (if in US/CAN) or the country; Listed as Country-State or Country-Country
+Global Reporting Region Level 0 ID,JDE/ Sub ERP,Yes,The State/Providence of the sale (if in US/CAN) or the country; Listed as Country-State or Country-Country
+Global Reporting Region Level 1 Description,JDE/ Sub ERP,Yes,The Country of the sale
+Global Reporting Region Level 1 ID,JDE/ Sub ERP,Yes,The Country of the sale
+Global Reporting Region Level 2 Description,JDE/ Sub ERP,Yes,The Country of the sale
+Global Reporting Region Level 2 ID,JDE/ Sub ERP,Yes,The Country of the sale
+Global Reporting Region Level 3 ID,JDE/ Sub ERP,Yes,"Designated whether the sale was in NA-US, NA-CAN, NA-MX or everything else"
+Hold Orders ID,JDE/ Sub ERP,No,A flag for hold orders
+Invoice Date,JDE/ Sub ERP,Yes,Date of the invoice generation (should match the GL Date)
+Invoice Number,JDE/ Sub ERP,Yes,"The invoice number, as generated in the ERP"
+Invoice Type,JDE/ Sub ERP,No,The type of invoice. RI = Regular invoice RM = Return/credit
+Item,JDE/ Sub ERP,Yes,Friendly item number
+Item Description,Catsy,Yes,The item primary description
+Item Description 2,Catsy,No,The item secondary description
+Item Description 3,Catsy,No,The item tertiary description
+Item Rank,Catsy,No,"The commercially designated rank for the item, in terms of importance to the business… see right"
+Item Unit of Measure,Catsy,No,The unit of measure that the item is sold in
+Line Number,JDE/ Sub ERP,Yes,The line number on the order
+Line Type,JDE/ Sub ERP,No,The type of line
+Local Category At Time of Invoice ID,Catsy,Yes,The category the BU self designated prior to acquisition. As it was coded at time of invoicing
+Local Category At Time of Invoice Name,Catsy,Yes,The category the BU self designated prior to acquisition. As it was coded at time of invoicing
+Local Category Currently Used ID,Catsy,Yes,The category the BU self designated prior to acquisition. As it would be coded today
+Local Category Currently Used Name,Catsy,Yes,The category the BU self designated prior to acquisition. As it would be coded today
+Mode of Transportation ID,JDE/ Sub ERP,No,"The method of transportation for the order. TL, LTL, Ground, etc."
+Morris Branch,Sage,Morris,A field used by Morris
+Morris Branch Name,Sage,Morris,A field used by Morris
+Order Date,JDE/ Sub ERP,Yes,The day the order was placed by the customer
+Order Entered by ID,JDE/ Sub ERP,No,The associate who entered the order
+Order Entered by Name,JDE/ Sub ERP,No,The associate who entered the order
+Order Number,JDE/ Sub ERP,Yes,The ERP generated number for the order
+Order Type,JDE/ Sub ERP,No,The type of order… See example to the right
+Ownership,Only in Tableau,Yes,Ownership as defined by global Icebox Holdings Co. and when the acquisition was purchased
+Parent Name (Clean),Only in Tableau,Yes,The cleanest groupings of our customers. Only exists in Tableau
+Payment Terms ID,JDE/ Sub ERP,No,The default payment terms for the customer
+Promised Shipment date,JDE/ Sub ERP,No,When the shipment was originally promised to the customer
+Reason Code ID,JDE/ Sub ERP,No,The designated flag for an order entry code. Can be used for promotions or other identifier
+Reference,JDE/ Sub ERP,Yes,"A subfield generated that depends on the subsidiary. Could be the customer PO, name, or something else"
+Reference 2,JDE/ Sub ERP,Yes,"A subfield generated that depends on the subsidiary. Could be the customer PO, name, or something else"
+Requested Date,JDE/ Sub ERP,No,The date the customer requested the shipment
+Ship Date,JDE/ Sub ERP,Yes,The date the line was shipped
+Ship To Address 1,Oro,Yes,The DEFAULT mailing address for the ship-to account
+Ship To Address 2,Oro,Yes,The DEFAULT mailing address for the ship-to account
+Ship To Buying Group ID,Oro,No,The DEFAULT buying group the ship-to is a part of. Used in pricing calculations
+Ship To Buying Group Name,Oro,No,The DEFAULT buying group the ship-to is a part of. Used in pricing calculations
+Ship To City,Oro,Yes,The DEFAULT city for the ship-to account
+Ship To Country ID,Oro,Yes,The DEFAULT country for the ship-to account
+Ship To Country Name,Oro,Yes,The DEFAULT country for the ship-to account
+Ship To Customer Type ID,Oro,No,The DEFAULT customer type group the ship-to is a part of. Used in pricing calculations
+Ship To Customer Type Name,Oro,No,The DEFAULT customer type group the ship-to is a part of. Used in pricing calculations
+Ship To Name,Oro,Yes,The DEFAULT name for the ship-to account
+Ship to Number,JDE/ Sub ERP,Yes,The JDE/ Sub ERP number for this billing address
+Ship To Postal Code,Oro,Yes,The DEFAULT postal code for the ship-to account
+Ship to Region At Time of Invoice ID,Oro,No,The DEFAULT sales geographic region as it was assigned at time of invoice
+Ship To Region At Time of Invoice Name,Oro,No,The DEFAULT sales geographic region as it was assigned at time of invoice
+Ship to Region Currently Used ID,Oro,No,The DEFAULT sales geographic region as it would be currently assigned today
+Ship To Region Currently Used Name,Oro,No,The DEFAULT sales geographic region as it would be currently assigned today
+Ship To State ID,Oro,Yes,The DEFAULT state for the ship-to account
+Ship To State Name,Oro,Yes,The DEFAULT state for the ship-to account
+Shipment Number,JDE/ Sub ERP,Yes,The ERP generated number for the shipment
+Status Code Last,JDE/ Sub ERP,No,The last code that was designated for the line in terms of order processing from order placement to invoice
+Status Code Next,JDE/ Sub ERP,No,The next code that was designated for the line in terms of order processing from order placement to invoice
+Stop Code ID,JDE/ Sub ERP,No,The designated flag for an order entry code. Can be used for promotions or other identifier
+Subsidiary ID,JDE/ Sub ERP,Yes,The subsidiary that owns the transaction. Where the revenue will be recognized
+Subsidiary Name,JDE/ Sub ERP,Yes,The subsidiary that owns the transaction. Where the revenue will be recognized
+Supplier ID,JDE/ Sub ERP,No,The default supplier for the product
+Supplier Name,JDE/ Sub ERP,No,The default supplier for the product
+Zone Number,JDE/ Sub ERP,No,"A designation for special shipment locations. Export, dropship, etc."

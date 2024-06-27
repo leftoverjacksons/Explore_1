@@ -25,10 +25,13 @@ def create_db_engine(config):
 def fetch_sales_data(engine):
     query = """
     SELECT 
-        BILL_CUSTOMER_SID, 
+        BILL_CUSTOMER_SID,
+        SHIP_TO_NUMBER,
         EXTENDED_PRICE
     FROM 
         F_SALES
+    WHERE 
+        SHIP_TO_NUMBER LIKE 'X%' OR SHIP_TO_NUMBER LIKE 'S%'
     """
     return pd.read_sql(query, engine)
 
@@ -60,8 +63,8 @@ def elbow_method(data):
 
 
 def kmeans_segmentation(df, n_clusters):
-    customer_summary = df.groupby('BILL_CUSTOMER_SID')['EXTENDED_PRICE'].sum().reset_index()
-    customer_summary.columns = ['CUSTOMER_ID', 'TOTAL_REVENUE']
+    customer_summary = df.groupby(['BILL_CUSTOMER_SID', 'BILL_TO_NUMBER'])['EXTENDED_PRICE'].sum().reset_index()
+    customer_summary.columns = ['CUSTOMER_ID', 'BILLING_ENTITY', 'TOTAL_REVENUE']
 
     scaler = StandardScaler()
     revenue_scaled = scaler.fit_transform(customer_summary['TOTAL_REVENUE'].values.reshape(-1, 1))
@@ -79,17 +82,21 @@ def kmeans_segmentation(df, n_clusters):
 
 def print_summary(customer_summary):
     total_revenue = customer_summary['TOTAL_REVENUE'].sum()
+    total_parent_customers = customer_summary['CUSTOMER_ID'].nunique()
+    total_billing_entities = len(customer_summary)
+
     logging.info("\nCustomer Segmentation Summary:")
-    logging.info(f"Total customers: {len(customer_summary)}")
+    logging.info(f"Total parent customers: {total_parent_customers}")
+    logging.info(f"Total billing entities: {total_billing_entities}")
 
     for segment in sorted(customer_summary['SEGMENT'].unique()):
         segment_data = customer_summary[customer_summary['SEGMENT'] == segment]
         segment_revenue = segment_data['TOTAL_REVENUE'].sum()
 
         logging.info(f"\n{segment}:")
-        logging.info(f"Customers: {len(segment_data)} ({len(segment_data) / len(customer_summary):.2%})")
+        logging.info(f"Billing entities: {len(segment_data)} ({len(segment_data) / total_billing_entities:.2%})")
         logging.info(f"Revenue: ${segment_revenue:,.2f} ({segment_revenue / total_revenue:.2%})")
-        logging.info(f"Average revenue per customer: ${segment_revenue / len(segment_data):,.2f}")
+        logging.info(f"Average revenue per billing entity: ${segment_revenue / len(segment_data):,.2f}")
 
 
 def plot_revenue_distribution(customer_summary):
@@ -97,9 +104,9 @@ def plot_revenue_distribution(customer_summary):
     for segment in sorted(customer_summary['SEGMENT'].unique()):
         segment_data = customer_summary[customer_summary['SEGMENT'] == segment]
         plt.hist(segment_data['TOTAL_REVENUE'], bins=50, alpha=0.5, label=segment)
-    plt.title('Distribution of Customer Revenue by Segment')
+    plt.title('Distribution of Billing Entity Revenue by Segment')
     plt.xlabel('Total Revenue')
-    plt.ylabel('Number of Customers')
+    plt.ylabel('Number of Billing Entities')
     plt.legend()
     plt.savefig('revenue_distribution_by_segment.png')
     plt.close()
@@ -112,7 +119,7 @@ def main():
         df = fetch_sales_data(engine)
 
         # K-means Segmentation
-        optimal_k = elbow_method(df.groupby('BILL_CUSTOMER_SID')['EXTENDED_PRICE'].sum().values)
+        optimal_k = elbow_method(df.groupby(['BILL_CUSTOMER_SID', 'BILL_TO_NUMBER'])['EXTENDED_PRICE'].sum().values)
         logging.info(f"\nOptimal number of clusters based on Elbow Method: {optimal_k}")
 
         kmeans_summary = kmeans_segmentation(df, optimal_k)
