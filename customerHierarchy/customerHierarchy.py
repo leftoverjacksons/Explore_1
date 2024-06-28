@@ -3,7 +3,7 @@ from mysql.connector import Error
 import pandas as pd
 import configparser
 from collections import defaultdict
-import csv
+import sqlite3
 
 
 def read_db_config(filename='../config.ini', section='mysql'):
@@ -14,14 +14,14 @@ def read_db_config(filename='../config.ini', section='mysql'):
 
 def connect_to_db():
     db_config = read_db_config()
-    connection = None
     try:
         connection = mysql.connector.connect(**db_config)
         if connection.is_connected():
             print("Connected to the database")
+        return connection
     except Error as e:
         print(f"Error: {e}")
-    return connection
+        return None
 
 
 def fetch_sales_data(connection):
@@ -40,13 +40,28 @@ def build_hierarchy(df):
     return hierarchy
 
 
-def save_hierarchy_to_csv(hierarchy, filename='customer_hierarchy.csv'):
-    with open(filename, mode='w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(['ParentCustomer', 'ChildCustomer'])
-        for parent, children in hierarchy.items():
-            for child in children:
-                writer.writerow([parent, child])
+def save_hierarchy_to_db(hierarchy, db_filename='customer_hierarchy.db'):
+    conn = sqlite3.connect(db_filename)
+    c = conn.cursor()
+    c.execute('DROP TABLE IF EXISTS customer_hierarchy')
+    c.execute('CREATE TABLE customer_hierarchy (parent_customer INTEGER, child_customer INTEGER)')
+
+    for parent, children in hierarchy.items():
+        for child in children:
+            c.execute('INSERT INTO customer_hierarchy (parent_customer, child_customer) VALUES (?, ?)', (parent, child))
+
+    conn.commit()
+    conn.close()
+    print(f"Customer hierarchy saved to {db_filename}")
+
+
+def query_hierarchy(parent_customer, db_filename='customer_hierarchy.db'):
+    conn = sqlite3.connect(db_filename)
+    c = conn.cursor()
+    c.execute('SELECT child_customer FROM customer_hierarchy WHERE parent_customer = ?', (parent_customer,))
+    children = c.fetchall()
+    conn.close()
+    return [child[0] for child in children]
 
 
 def main():
@@ -59,8 +74,12 @@ def main():
             print("No data found in F_SALES.")
         else:
             hierarchy = build_hierarchy(df)
-            save_hierarchy_to_csv(hierarchy)
-            print(f"Customer hierarchy saved to customer_hierarchy.csv")
+            save_hierarchy_to_db(hierarchy)
+
+            # Example query
+            parent_customer = 12345  # Replace with actual customer SID to query
+            children = query_hierarchy(parent_customer)
+            print(f"Children of customer {parent_customer}: {children}")
     else:
         print("Failed to connect to the database")
 
